@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cool Floating Animation</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0f0f0f;
+      overflow: hidden;
+    }
+
+    .circle {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ff00cc, #3333ff);
+      box-shadow: 0 0 30px #ff00cc;
+      transition: background 1s ease, box-shadow 1s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="circle" id="circle"></div>
+
+  <script>
+    const circle = document.getElementById('circle');
+    let angle = 0;
+
+    function animate() {
+      angle += 0.01;
+
+      const x = window.innerWidth / 2 + Math.sin(angle) * 200 - 50;
+      const y = window.innerHeight / 2 + Math.cos(angle * 1.5) * 150 - 50;
+
+      circle.style.left = `${x}px`;
+      circle.style.top = `${y}px`;
+
+      // Dynamic color effect
+      const r = Math.floor(128 + 128 * Math.sin(angle));
+      const g = Math.floor(128 + 128 * Math.sin(angle + 2));
+      const b = Math.floor(128 + 128 * Math.sin(angle + 4));
+
+      circle.style.background = `radial-gradient(circle, rgb(${r},${g},${b}), #000)`;
+      circle.style.boxShadow = `0 0 30px rgb(${r},${g},${b})`;
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
